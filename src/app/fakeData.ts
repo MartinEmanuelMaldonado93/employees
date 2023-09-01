@@ -1,4 +1,4 @@
-export const fakeEmployees: Employee[] = [
+export const fakeEmployees: I_Employee[] = [
   {
     id: 1,
     firstName: 'John',

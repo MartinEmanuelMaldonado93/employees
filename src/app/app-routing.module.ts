@@ -4,8 +4,11 @@ import { CreateEmployeeComponent } from './create-employee/create-employee.compo
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 
 const routes: Routes = [
-  { path: '', component: EmployeeListComponent },
-  { path: 'create', component: CreateEmployeeComponent },
+  { path: 'employees', component: EmployeeListComponent },
+  { path: 'create-employee', component: CreateEmployeeComponent },
+  { path: '', redirectTo: 'employees', pathMatch: 'full' },
+  // { path: 'update-employee/:id', component: UpdateEmployeeComponent },
+  // { path: 'employee-details/:id', component: EmployeeDetailsComponent },
 ];
 
 @NgModule({

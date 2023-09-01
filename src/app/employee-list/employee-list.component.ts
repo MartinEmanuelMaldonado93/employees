@@ -8,7 +8,7 @@ import { fakeEmployees } from '../fakeData';
   styleUrls: ['./employee-list.component.css'],
 })
 export class EmployeeListComponent implements OnInit {
-  employees?: Employee[];
+  employees?: I_Employee[];
 
   constructor(
     // private employeeService: EmployeeService,
