@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { fakeEmployees } from '../fakeData';
+import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -11,30 +12,32 @@ export class EmployeeListComponent implements OnInit {
   employees?: I_Employee[];
 
   constructor(
-    // private employeeService: EmployeeService,
+    private employeeService: EmployeeService,
     private router: Router
   ) {}
+
   ngOnInit(): void {
-    this.employees = fakeEmployees;
-    // this.getEmployees();
+    // this.employees = fakeEmployees;
+    this.getEmployees();
   }
 
-  // private getEmployees(): void {
-  //   const listEmployeeObs = this.employeeService.getEmployeesList();
+  private getEmployees(): void {
+    const listEmployeeObs = this.employeeService.getEmployeesList();
 
-  //   listEmployeeObs.subscribe((data) => (this.employees = data));
-  // }
+    listEmployeeObs.subscribe((data) => (this.employees = data));
+  }
 
   updateEmployee(id: number) {
-    this.router.navigate(['update-employee', id]);
+    // this.router.navigate(['update-employee', id]);
   }
 
-  // deleteEmployee(id: number) {
-  //   const deletedEmployeeObs = this.employeeService.deleteEmployee(id);
+  deleteEmployee(id: number) {
+    console.log("delete function!");
+    // const deletedEmployeeObs = this.employeeService.deleteEmployee(id);
 
-  //   deletedEmployeeObs.subscribe((data) => {
-  //     console.log(data); // item deleted
-  //     this.getEmployees();
-  //   });
-  // }
+    // deletedEmployeeObs.subscribe((data) => {
+    //   console.log(data); // item deleted
+    //   this.getEmployees();
+    // });
+  }
 }

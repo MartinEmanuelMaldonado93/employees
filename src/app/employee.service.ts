@@ -7,22 +7,22 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class EmployeeService {
-  private baseURL = 'https://localhost:8080/api/v1/employees';
+  private baseUrl = 'http://localhost:8000/employee';
   constructor(private httpClient: HttpClient) {}
 
   getEmployeesList(): Observable<I_Employee[]> {
-    return this.httpClient.get<I_Employee[]>(`${this.baseURL}`);
+    return this.httpClient.get<I_Employee[]>(`${this.baseUrl}`);
   }
   createEmployee(employee: I_Employee): Observable<Object> {
-    return this.httpClient.post(`${this.baseURL}`, employee);
+    return this.httpClient.post(`${this.baseUrl}`, employee);
   }
   getEmployeeById(id: number): Observable<I_Employee> {
-    return this.httpClient.get<I_Employee>(`${this.baseURL}/${id}`);
+    return this.httpClient.get<I_Employee>(`${this.baseUrl}/${id}`);
   }
   updateEmployee(id: number, employee: I_Employee): Observable<Object> {
-    return this.httpClient.put(`${this.baseURL}/${id}`, employee);
+    return this.httpClient.put(`${this.baseUrl}/${id}`, employee);
   }
   deleteEmployee(id: number): Observable<Object> {
-    return this.httpClient.delete(`${this.baseURL}/${id}`);
+    return this.httpClient.delete(`${this.baseUrl}/${id}`);
   }
 }

@@ -20,7 +20,7 @@
           <button (click)="updateEmployee(employee.id)" class="">
             Update
           </button>
-          <button class="danger-button">
+          <button class="danger-button" (click)="deleteEmployee(+employee.emailId)">
             Delete
           </button>
           <!-- <button (click) = "employeeDetails(employee.id)" class = "btn btn-primary" style="margin-left: 10px"> View</button> -->
