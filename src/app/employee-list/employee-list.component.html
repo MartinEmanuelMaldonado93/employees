@@ -3,6 +3,18 @@
 </div>
 <div class="contain-table">
   <table class="table striped-table table-bordered">
+    <div
+      *ngIf="loading"
+      style="
+        transition: all 0.4s;
+        font-size: 25px;
+        width: 100%;
+        text-align: center;
+      "
+      class="vertical-center"
+    >
+      LOADING...
+    </div>
     <thead>
       <tr>
         <th>First Name</th>
@@ -17,10 +29,8 @@
         <td>{{ employee.lastName }}</td>
         <td>{{ employee.emailId }}</td>
         <td>
-          <button (click)="updateEmployee(employee.id)" class="">
-            Update
-          </button>
-          <button class="danger-button" (click)="deleteEmployee(+employee.emailId)">
+          <button (click)="updateEmployee(employee.id)" class="">Update</button>
+          <button class="danger-button" (click)="deleteEmployee(+employee.id)">
             Delete
           </button>
           <!-- <button (click) = "employeeDetails(employee.id)" class = "btn btn-primary" style="margin-left: 10px"> View</button> -->

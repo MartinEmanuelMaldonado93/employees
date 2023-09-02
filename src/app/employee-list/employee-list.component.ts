@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { fakeEmployees } from '../fakeData';
+import { Observable, Subject } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { EmployeeService } from '../employee.service';
 
 @Component({
@@ -9,7 +10,9 @@ import { EmployeeService } from '../employee.service';
   styleUrls: ['./employee-list.component.css'],
 })
 export class EmployeeListComponent implements OnInit {
-  employees?: I_Employee[];
+  employees: I_Employee[] = [];
+  loading = false;
+  private refresh$ = new Subject<void>();
 
   constructor(
     private employeeService: EmployeeService,
@@ -17,14 +20,34 @@ export class EmployeeListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.employees = fakeEmployees;
-    this.getEmployees();
+    this.refresh$
+      .pipe(
+        tap(() => (this.loading = true)), // Show loading spinner
+        switchMap(() => this.getEmployees()), // Make the HTTP request
+        tap(() => (this.loading = false)), // Hide loading spinner
+        catchError((error) => {
+          // Handle errors and show error message
+          console.error('Error fetching employees:', error);
+          // You can also display an error message to the user here
+          throw error; // Rethrow the error to propagate it further
+        })
+      )
+      .subscribe((employees) => {
+        console.log('hello', employees);
+        this.employees = employees;
+      });
+    this.refresh$.next();
+  }
+  // Trigger a refresh when the user clicks a button or some other event
+  onRefreshClick() {
+    this.refresh$.next();
   }
 
-  private getEmployees(): void {
-    const listEmployeeObs = this.employeeService.getEmployeesList();
-
-    listEmployeeObs.subscribe((data) => (this.employees = data));
+  private getEmployees(): Observable<I_Employee[]> {
+    console.log('getEmployees');
+    return this.employeeService.getEmployeesList();
+    // const listEmployeeObs = this.employeeService.getEmployeesList();
+    // listEmployeeObs.subscribe((data) => (this.employees = data));
   }
 
   updateEmployee(id: number) {
@@ -32,12 +55,15 @@ export class EmployeeListComponent implements OnInit {
   }
 
   deleteEmployee(id: number) {
-    console.log("delete function!");
-    // const deletedEmployeeObs = this.employeeService.deleteEmployee(id);
-
-    // deletedEmployeeObs.subscribe((data) => {
-    //   console.log(data); // item deleted
-    //   this.getEmployees();
-    // });
+    this.employeeService.deleteEmployee(id).subscribe({
+      complete: () => {
+        console.log('simple complete message'); // item deleted
+      },
+      error: () => console.log('error happends'),
+      next: (value) => {
+        this.employees = this.employees.filter((emp) => emp.id !== id);
+        console.log(value);
+      },
+    });
   }
 }
