@@ -1,7 +1,7 @@
 <div class="row">
   <h2>Employee List</h2>
 </div>
-<div class="contain-table">
+<div class="">
   <table class="table striped-table table-bordered">
     <div
       *ngIf="loading"
@@ -33,7 +33,13 @@
           <button class="danger-button" (click)="deleteEmployee(+employee.id)">
             Delete
           </button>
-          <!-- <button (click) = "employeeDetails(employee.id)" class = "btn btn-primary" style="margin-left: 10px"> View</button> -->
+          <button
+            (click)="employeeDetails(employee.id)"
+            class="btn btn-primary"
+            style="margin-left: 10px"
+          >
+            View
+          </button>
         </td>
       </tr>
     </tbody>

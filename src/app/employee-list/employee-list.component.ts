@@ -38,22 +38,21 @@ export class EmployeeListComponent implements OnInit {
       });
     this.onRefreshClick();
   }
-  // Trigger a refresh when the user clicks a button or some other event
   onRefreshClick() {
     this.refresh$.next();
   }
-
-  private getEmployees(): Observable<I_Employee[]> {
+  getEmployees(): Observable<I_Employee[]> {
     console.log('getEmployees');
     return this.employeeService.getEmployeesList();
     // const listEmployeeObs = this.employeeService.getEmployeesList();
     // listEmployeeObs.subscribe((data) => (this.employees = data));
   }
-
+  employeeDetails(id: number) {
+    this.router.navigate(['employee-details', id]);
+  }
   updateEmployee(id: number) {
     this.router.navigate(['update-employee', id]);
   }
-
   deleteEmployee(id: number) {
     /** TODO should show a spinner and then deleted from the ui */
     this.employeeService.deleteEmployee(id).subscribe({
