@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EmployeeService } from '../employee.service';
 import { Employee } from '../employeeClass';
-import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-create-employee',
@@ -9,25 +9,33 @@ import { NgModel } from '@angular/forms';
   styleUrls: ['./create-employee.component.css'],
 })
 export class CreateEmployeeComponent implements OnInit {
-  employee: I_Employee = new Employee();
+  employee = new Employee();
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private employeeService: EmployeeService
+  ) {}
 
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
+
   saveEmployee() {
-    // this.employeeService.createEmployee(this.employee).subscribe(
-    //   (data) => {
-    //     console.log(data);
-    //     this.goToEmployeeList();
-    //   },
-    //   (error) => console.log(error)
-    // );
+    this.employeeService.createEmployee(this.employee).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.goToEmployeeList();
+      },
+      error: (error) => console.log(error),
+    });
   }
 
   goToEmployeeList() {
     this.router.navigate(['/employees']);
   }
-  onSubmit() {}
+
+  onSubmit() {
+    console.log(this.employee);
+    this.saveEmployee();
+  }
 }

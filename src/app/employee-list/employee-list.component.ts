@@ -36,7 +36,7 @@ export class EmployeeListComponent implements OnInit {
         console.log('hello', employees);
         this.employees = employees;
       });
-    this.refresh$.next();
+    this.onRefreshClick();
   }
   // Trigger a refresh when the user clicks a button or some other event
   onRefreshClick() {
@@ -51,14 +51,13 @@ export class EmployeeListComponent implements OnInit {
   }
 
   updateEmployee(id: number) {
-    // this.router.navigate(['update-employee', id]);
+    this.router.navigate(['update-employee', id]);
   }
 
   deleteEmployee(id: number) {
+    /** TODO should show a spinner and then deleted from the ui */
     this.employeeService.deleteEmployee(id).subscribe({
-      complete: () => {
-        console.log('simple complete message'); // item deleted
-      },
+      complete: () => console.log('simple complete message'), // item deleted
       error: () => console.log('error happends'),
       next: (value) => {
         this.employees = this.employees.filter((emp) => emp.id !== id);
