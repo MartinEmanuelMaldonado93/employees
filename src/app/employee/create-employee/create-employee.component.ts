@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmployeeService } from '../employee.service';
 import { Employee } from '../employeeClass';
@@ -9,15 +9,16 @@ import { Employee } from '../employeeClass';
   styleUrls: ['./create-employee.component.css'],
 })
 export class CreateEmployeeComponent implements OnInit {
+  private router = inject(Router);
+  private employeeService = inject(EmployeeService);
+
   employee = new Employee();
 
-  constructor(
-    private router: Router,
-    private employeeService: EmployeeService
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
-   // throw new Error('Method not implemented.');
+    // throw new Error('Method not implemented.');
+    console.log('on init...');
   }
 
   saveEmployee() {

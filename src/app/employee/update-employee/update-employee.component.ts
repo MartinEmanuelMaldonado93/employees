@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../employee.service';
 import { Employee } from '../employeeClass';
@@ -9,14 +9,13 @@ import { Employee } from '../employeeClass';
   styleUrls: ['./update-employee.component.css'],
 })
 export class UpdateEmployeeComponent implements OnInit {
+  private employeeService = inject(EmployeeService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
   id: number = 0;
   employee: Employee = new Employee();
 
-  constructor(
-    private employeeService: EmployeeService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];

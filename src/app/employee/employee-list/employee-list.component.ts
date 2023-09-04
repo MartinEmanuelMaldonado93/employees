@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
@@ -10,14 +10,13 @@ import { EmployeeService } from '../employee.service';
   styleUrls: ['./employee-list.component.css'],
 })
 export class EmployeeListComponent implements OnInit {
+  private employeeService = inject(EmployeeService);
+  private router = inject(Router);
+  private refresh$ = new Subject<void>();
   employees: I_Employee[] = [];
   loading = false;
-  private refresh$ = new Subject<void>();
 
-  constructor(
-    private employeeService: EmployeeService,
-    private router: Router
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.refresh$

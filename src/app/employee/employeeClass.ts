@@ -1,7 +1,6 @@
-export class Employee implements I_Employee {
+export class Employee {
   id!: number;
   firstName!: string;
   lastName!: string;
   emailId!: string;
-  
 }
