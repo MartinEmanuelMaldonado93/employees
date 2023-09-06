@@ -1,4 +1,4 @@
-export class Employee {
+export class Employee implements I_Employee{
   id!: number;
   firstName!: string;
   lastName!: string;

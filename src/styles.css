@@ -34,8 +34,8 @@ html {
  */
 body {
   margin: 0;
+  overflow-y: hidden;
 }
-
 /**
  * Render the `main` element consistently in IE.
  */
